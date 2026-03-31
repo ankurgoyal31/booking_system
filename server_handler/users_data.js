@@ -7,7 +7,6 @@ const app = express();
  app.post("/user",check_email_exists,async(req,res)=>{
     try{
 const [user] = await db.query("insert into users (name,email) values (?, ?)",[req.body.name, req.body.email]);
-console.log(user.id)
 res.status(200).json({message:"user sucessfully created, please use this user_Id to booking or create the events",user_id:user.insertId})
     }catch(err){
         res.status(400).json({message:"something went wrong.."}) 
@@ -20,7 +19,6 @@ let [events] = await db.query(`insert into events (status,title, description,dat
     ,[true,req.body.title,req.body.description,req.body.date,req.body.total_capacity,req.body.total_capacity, req.body.user_id]);
 res.status(200).json({message:'your event created sucessfully,please use this event_id for booking',event_id:events.insertId})
     }catch(err){
-        console.log(err)
         res.status(400).json({message:"something went wrong..",err:err}) 
     }
 })
@@ -67,13 +65,9 @@ app.post("/events/:id/attendance",check_user,check_event,check_user_booking,asyn
         let data = await db.query("insert into event_attendance (user_id,event_id) values (?,?)",[req.body.user_id,event_id])
          res.status(200).json({message:'sucessfully join'})
     }catch(err){
-        console.log(err)
         res.status(400).json({message:"something went wrong.."}) 
     }
 })
-let book = await db.query("select * from events")
-console.log(book)
-
 app.listen(5000,(req,res)=>{ 
     console.log("running........");
 })
