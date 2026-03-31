@@ -330,7 +330,6 @@ GET https://booking-system-cu2j.onrender.com/users/1/bookings
 * Email is stored as UNIQUE in the database
 * Remaining tickets are updated atomically
 * Duplicate booking prevented using middleware + DB
-* Race conditions handled using DB constraints and conditional updates
 
 ---
 
