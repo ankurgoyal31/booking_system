@@ -80,12 +80,3 @@ return res.send({message:"please check your connection....",err:err})
 }
 
 export {check_user,check_event,check_user_ticket,events_status,check_user_booking,check_email_exists};
-
-// {
-//    "title":"aja meri rani safari",
-//    "description":"ajao",
-//    "date":"2006-4-4",
-//    "total_capacity": 2,
-//    "remaining_tickets":2,
-//    "user_id":16
-// }
