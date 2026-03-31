@@ -4,8 +4,13 @@ const db = await connect();
 import { check_event,check_user,check_user_ticket,events_status,check_user_booking,check_email_exists} from "./varification.js";
 const app = express(); 
  app.use(express.json()) 
+
  app.post("/user",check_email_exists,async(req,res)=>{
     try{
+     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailRegex.test(req.body.email)) {
+  return res.status(400).json({ message: "Invalid email format"});
+}
 const [user] = await db.query("insert into users (name,email) values (?, ?)",[req.body.name, req.body.email]);
 res.status(200).json({message:"user sucessfully created, please use this user_Id to booking or create the events",user_id:user.insertId})
     }catch(err){
