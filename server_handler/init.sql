@@ -11,6 +11,7 @@ CREATE TABLE if not exists users (
 CREATE TABLE if not exists events (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id int not null,
+    status boolean,
   title VARCHAR(255) NOT NULL,
   description TEXT,
   date DATE NOT NULL,
@@ -18,7 +19,7 @@ CREATE TABLE if not exists events (
   remaining_tickets int not null,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   foreign key(user_id) references users(id)
- );
+  );
 
 CREATE TABLE if not exists bookings (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,7 +37,3 @@ CREATE TABLE if not exists event_attendance (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
-
-create table if not exists students (id int);
-insert into students values(1),(2),(3),(4);
-drop table students;
