@@ -1,13 +1,14 @@
 import express from "express";
 import connect from "./connection.js";
 const db = await connect(); 
+
 import { check_event,check_user,check_user_ticket,events_status,check_user_booking,check_email_exists} from "./varification.js";
 const app = express(); 
  app.use(express.json()) 
 
  app.post("/user",check_email_exists,async(req,res)=>{
     try{
-     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 if (!emailRegex.test(req.body.email)) {
   return res.status(400).json({ message: "Invalid email format"});
 }
@@ -69,6 +70,14 @@ app.post("/events/:id/attendance",check_user,check_event,check_user_booking,asyn
     }
         let data = await db.query("insert into event_attendance (user_id,event_id) values (?,?)",[req.body.user_id,event_id])
          res.status(200).json({message:'sucessfully join'})
+    }catch(err){
+        res.status(400).json({message:"something went wrong.."}) 
+    }
+})
+app.get("/users/:id/bookings",async(req,res)=>{
+    try{
+let [data] = await db.query("select * from bookings where id=?",[req.params.id])
+res.status(200).json({data});
     }catch(err){
         res.status(400).json({message:"something went wrong.."}) 
     }
