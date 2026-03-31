@@ -3,7 +3,7 @@ let db = await connect();
 
 const check_email_exists = async(req,res,next)=>{
     try{
-let [email] = await db.query("select * from users where email=? and name=?",[req.body.email,req.body.name])
+let [email] = await db.query("select * from users where email=?",[req.body.email])
 if(email.length>0){
     return res.send({message: "Email or Name already exists"})
 }
