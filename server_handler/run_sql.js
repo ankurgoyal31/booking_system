@@ -6,5 +6,4 @@ async function run_sql() {
     await db.query(sql);
     console.log("connected by sql....")
 }
-export {run_sql}
-console.log(sql)
+run_sql()
