@@ -19,7 +19,7 @@ let [events] = await db.query(`insert into events (status,title, description,dat
     ,[true,req.body.title,req.body.description,req.body.date,req.body.total_capacity,req.body.total_capacity, req.body.user_id]);
 res.status(200).json({message:'your event created sucessfully,please use this event_id for booking',event_id:events.insertId})
     }catch(err){
-        res.status(400).json({message:"something went wrong..",err:err}) 
+        res.status(400).json({message:"something went wrong.."}) 
     }
 })
 
